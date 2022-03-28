@@ -1,0 +1,73 @@
+import requests
+from bs4 import BeautifulSoup
+
+headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'}
+
+
+class NobetciEczane:
+    def __init__(self, il:str, ilce:str):
+        self.il = il
+        self.ilce = ilce
+
+        il      = il.replace('İ', "i").lower()
+        ilce    = ilce.lower()
+
+        tr_alphabet  = str.maketrans(" .,-*/+-ıİüÜöÖçÇşŞğĞ", "________iIuUoOcCsSgG")
+        il      = il.translate(tr_alphabet)
+        ilce    = ilce.translate(tr_alphabet)
+
+        tempil = self.ilInput()
+        print(tempil)
+        tempilce = self.ilceInput()
+        print(tempilce)
+
+        source  = "eczaneler.gen.tr"
+        self.url     = f"https://www.eczaneler.gen.tr/nobetci-{il}-{ilce}"
+        request   = requests.get(self.url, headers=headers)
+
+        soup = BeautifulSoup(request.content, "lxml")
+        eczaneler = soup.find('div', id='nav-bugun')
+
+        data_json = {"source": source, 'data' : []}
+
+        try:
+            for bak in eczaneler.findAll('tr')[1:]:
+                isim    = bak.find('span', class_='isim').text
+                mah   = (None if bak.find('div', class_='my-2') is None else bak.find('div', class_='my-2').text)
+                adres = bak.find('div', class_='col-lg-6').text
+                tarif = (None if bak.find('span', class_='text-secondary font-italic') is None else bak.find('span', class_='text-secondary font-italic').text)
+                tel  = bak.find('div', class_='col-lg-3 py-lg-2').text
+
+                data_json['data'].append({
+                    'ad'        : isim,
+                    'mahalle'   : mah,
+                    'adres'     : adres,
+                    'tarif'     : tarif,
+                    'telefon'   : tel
+                })
+            print("for bitti")
+        except AttributeError:
+            pass
+
+        print(data_json)
+
+    def userInput(self):
+        il = input("İl giriniz: ")
+        ilce = input("İlçe giriniz: ")
+
+    def ilInput(self):
+        self.il = input("İl giriniz: ")
+        return il
+    def ilceInput(self):
+        self.ilce = input("İl giriniz: ")
+        return ilce
+    
+
+
+
+
+
+il = input("İl giriniz: ")
+ilce = input("İlçe giriniz: ")
+
+ecz1 = NobetciEczane(il, ilce)
