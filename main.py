@@ -5,24 +5,26 @@ headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KH
 
 
 class NobetciEczane:
-    def __init__(self, il:str, ilce:str):
-        self.il = il
-        self.ilce = ilce
+    def __init__(self):
+        self.il = self.ilInput()
+        self.ilce = self.ilceInput()
 
-        il      = il.replace('İ', "i").lower()
-        ilce    = ilce.lower()
+        self.il     = self.il.replace('İ', "i").lower()
+        self.ilce   = self.ilce.lower()
 
         tr_alphabet  = str.maketrans(" .,-*/+-ıİüÜöÖçÇşŞğĞ", "________iIuUoOcCsSgG")
-        il      = il.translate(tr_alphabet)
-        ilce    = ilce.translate(tr_alphabet)
+        self.il     = self.il.translate(tr_alphabet)
+        self.ilce    = self.ilce.translate(tr_alphabet)
 
+        """
         tempil = self.ilInput()
         print(tempil)
         tempilce = self.ilceInput()
         print(tempilce)
+        """
 
         source  = "eczaneler.gen.tr"
-        self.url     = f"https://www.eczaneler.gen.tr/nobetci-{il}-{ilce}"
+        self.url     = f"https://www.eczaneler.gen.tr/nobetci-{self.il}-{self.ilce}"
         request   = requests.get(self.url, headers=headers)
 
         soup = BeautifulSoup(request.content, "lxml")
@@ -57,17 +59,18 @@ class NobetciEczane:
 
     def ilInput(self):
         self.il = input("İl giriniz: ")
-        return il
+        return self.il
     def ilceInput(self):
         self.ilce = input("İl giriniz: ")
-        return ilce
+        return self.ilce
     
 
 
 
 
-
+"""
 il = input("İl giriniz: ")
 ilce = input("İlçe giriniz: ")
+"""
 
-ecz1 = NobetciEczane(il, ilce)
+ecz1 = NobetciEczane()
