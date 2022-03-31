@@ -91,13 +91,14 @@ class NobetciEczane:
         print("?"*50)
 
         veri_load = json.loads(veri)
-        print(veri_load)
-        print("?"*50)
-        print("Eczane Adi: ", veri_load[0]["ad"])
-        print("Mahalle Adi: ",veri_load[0]["mahalle"])
-        print("Adres: ",veri_load[0]["adres"])
-        print("Adres Tarifi: ",veri_load[0]["tarif"])
-        print("Telefon: ",veri_load[0]["telefon"])
+        for x in range(0,len(veri_load),1):
+            print("#"*50)
+            print("Eczane Adi: ", veri_load[x]["ad"])
+            print("Mahalle Adi: ",veri_load[x]["mahalle"])
+            print("Adres: ",veri_load[x]["adres"])
+            print("Adres Tarifi: ",veri_load[x]["tarif"])
+            print("Telefon: ",veri_load[x]["telefon"])
+            print("#"*50)
 
 
     def userInput(self):
