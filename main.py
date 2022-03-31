@@ -1,5 +1,7 @@
+from turtle import ht
 import requests
 from bs4 import BeautifulSoup
+import json
 
 headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'}
 
@@ -52,6 +54,42 @@ class NobetciEczane:
             pass
 
         print(data_json)
+        print("*"*50)
+        print(type(data_json))
+        print("*"*50)
+        print(data_json['data'])
+        print("*"*50)
+        print(data_json['source'])
+        print("*"*50)
+        dataeczanee = data_json['data']
+        print(dataeczanee)
+        print("*"*50)
+        print(type(dataeczanee))
+        print("*"*50)
+        print(dataeczanee[0])
+        print("1"*50)
+        print(dataeczanee[1])
+        print("*"*50)
+        print(data_json['data'][0])
+        print("*"*50)
+        #print(data_json['data']['ad'])
+        print("*"*50)
+        #print(dataeczanee['ad'])
+        #print(data_json['ad'])
+
+        print("="*50)
+        print(type(data_json))
+        for i in data_json['data']:
+            print(i)
+        print("="*50)
+        print("="*50)
+        print("="*50)
+        
+        print("%"*50)
+        veri = json.dumps(data_json['data'], indent=4)
+        print(type(veri))
+        print(veri)
+        print("%"*50)
 
     def userInput(self):
         il = input("İl giriniz: ")
@@ -61,7 +99,7 @@ class NobetciEczane:
         self.il = input("İl giriniz: ")
         return self.il
     def ilceInput(self):
-        self.ilce = input("İl giriniz: ")
+        self.ilce = input("İlce giriniz: ")
         return self.ilce
     
 
@@ -74,3 +112,4 @@ ilce = input("İlçe giriniz: ")
 """
 
 ecz1 = NobetciEczane()
+
