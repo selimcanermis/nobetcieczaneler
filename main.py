@@ -66,10 +66,7 @@ class NobetciEczane:
         print("*"*50)
         print(type(dataeczanee))
         print("*"*50)
-        print(dataeczanee[0])
-        print("1"*50)
-        print(dataeczanee[1])
-        print("*"*50)
+        
         print(data_json['data'][0])
         print("*"*50)
         #print(data_json['data']['ad'])
@@ -90,6 +87,18 @@ class NobetciEczane:
         print(type(veri))
         print(veri)
         print("%"*50)
+        #print(veri['ad'])
+        print("?"*50)
+
+        veri_load = json.loads(veri)
+        print(veri_load)
+        print("?"*50)
+        print("Eczane Adi: ", veri_load[0]["ad"])
+        print("Mahalle Adi: ",veri_load[0]["mahalle"])
+        print("Adres: ",veri_load[0]["adres"])
+        print("Adres Tarifi: ",veri_load[0]["tarif"])
+        print("Telefon: ",veri_load[0]["telefon"])
+
 
     def userInput(self):
         il = input("İl giriniz: ")
