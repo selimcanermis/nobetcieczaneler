@@ -49,47 +49,16 @@ class NobetciEczane:
                     'tarif'     : tarif,
                     'telefon'   : tel
                 })
-            print("for bitti")
         except AttributeError:
             pass
 
-        print(data_json)
-        print("*"*50)
-        print(type(data_json))
-        print("*"*50)
-        print(data_json['data'])
-        print("*"*50)
-        print(data_json['source'])
-        print("*"*50)
-        dataeczanee = data_json['data']
-        print(dataeczanee)
-        print("*"*50)
-        print(type(dataeczanee))
-        print("*"*50)
         
-        print(data_json['data'][0])
-        print("*"*50)
-        #print(data_json['data']['ad'])
-        print("*"*50)
-        #print(dataeczanee['ad'])
-        #print(data_json['ad'])
-
-        print("="*50)
-        print(type(data_json))
-        for i in data_json['data']:
-            print(i)
-        print("="*50)
-        print("="*50)
-        print("="*50)
-        
-        print("%"*50)
         veri = json.dumps(data_json['data'], indent=4)
         print(type(veri))
         print(veri)
-        print("%"*50)
-        #print(veri['ad'])
-        print("?"*50)
-
+        print("#"*50)
+        
+        
         veri_load = json.loads(veri)
         for x in range(0,len(veri_load),1):
             print("#"*50)
@@ -98,7 +67,6 @@ class NobetciEczane:
             print("Adres: ",veri_load[x]["adres"])
             print("Adres Tarifi: ",veri_load[x]["tarif"])
             print("Telefon: ",veri_load[x]["telefon"])
-            print("#"*50)
 
 
     def userInput(self):
