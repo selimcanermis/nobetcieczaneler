@@ -2,8 +2,9 @@ from turtle import ht
 import requests
 from bs4 import BeautifulSoup
 import json
+from tabulate import tabulate
 
-headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'}
+headers_driver = {'User-Agent': 'Mozilla/5.0 (x11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36'}
 
 
 class NobetciEczane:
@@ -27,7 +28,7 @@ class NobetciEczane:
 
         source  = "eczaneler.gen.tr"
         self.url     = f"https://www.eczaneler.gen.tr/nobetci-{self.il}-{self.ilce}"
-        request   = requests.get(self.url, headers=headers)
+        request   = requests.get(self.url, headers=headers_driver)
 
         soup = BeautifulSoup(request.content, "lxml")
         eczaneler = soup.find('div', id='nav-bugun')
@@ -37,14 +38,12 @@ class NobetciEczane:
         try:
             for bak in eczaneler.findAll('tr')[1:]:
                 isim    = bak.find('span', class_='isim').text
-                mah   = (None if bak.find('div', class_='my-2') is None else bak.find('div', class_='my-2').text)
                 adres = bak.find('div', class_='col-lg-6').text
                 tarif = (None if bak.find('span', class_='text-secondary font-italic') is None else bak.find('span', class_='text-secondary font-italic').text)
                 tel  = bak.find('div', class_='col-lg-3 py-lg-2').text
 
                 data_json['data'].append({
-                    'ad'        : isim,
-                    'mahalle'   : mah,
+                    'isim'        : isim,
                     'adres'     : adres,
                     'tarif'     : tarif,
                     'telefon'   : tel
@@ -52,22 +51,35 @@ class NobetciEczane:
         except AttributeError:
             pass
 
-        
         veri = json.dumps(data_json['data'], indent=4)
-        print(type(veri))
-        print(veri)
-        print("#"*50)
-        
-        
         veri_load = json.loads(veri)
-        for x in range(0,len(veri_load),1):
-            print("#"*50)
-            print("Eczane Adi: ", veri_load[x]["ad"])
-            print("Mahalle Adi: ",veri_load[x]["mahalle"])
-            print("Adres: ",veri_load[x]["adres"])
-            print("Adres Tarifi: ",veri_load[x]["tarif"])
-            print("Telefon: ",veri_load[x]["telefon"])
 
+        for info in range(0,len(veri_load),1):
+            print("#"*50)
+            print("Eczane Adi: ", veri_load[info]["isim"])
+            print("Adres: ",veri_load[info]["adres"])
+            print("Adres Tarifi: ",veri_load[info]["tarif"])
+            print("Telefon: ",veri_load[info]["telefon"])
+
+        print("/\\"*50)
+        #print(tabulate(veri_load))
+        #print(tabulate(veri_load, headers = data_json))
+        print("\n")
+        print(tabulate(veri_load, headers = data_json, showindex='always'))
+        print("\n")
+        print("\n")
+        print(tabulate(veri_load, headers = data_json, showindex='always', tablefmt="github"))
+        print("\n")
+        print("\n")
+        print(tabulate(veri_load, headers = data_json, showindex='always', tablefmt="grid"))
+        print("\n")
+        print("\n")
+        print(tabulate(veri_load, headers = data_json, showindex='always', tablefmt="pretty"))
+        print("\n")
+        print("\n")
+        print(tabulate(veri_load, headers = data_json, showindex='always', tablefmt="psql"))
+
+        
 
     def userInput(self):
         il = input("İl giriniz: ")
