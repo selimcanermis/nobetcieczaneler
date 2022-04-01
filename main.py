@@ -56,6 +56,7 @@ class NobetciEczane:
             print("Telefon: ",veri_load[info]["telefon"])
         """
 
+        """
         print("\n")
         print(tabulate(veri_load, headers = data_json, showindex='always'))
         print("\n")
@@ -66,10 +67,13 @@ class NobetciEczane:
         print(tabulate(veri_load, headers = data_json, showindex='always', tablefmt="grid"))
         print("\n")
         print("\n")
+        print(tabulate(veri_load, headers = data_json, showindex='always', tablefmt="psql"))
+        """
+        
+        print("\n")
         print(tabulate(veri_load, headers = data_json, showindex='always', tablefmt="pretty"))
         print("\n")
-        print("\n")
-        print(tabulate(veri_load, headers = data_json, showindex='always', tablefmt="psql"))
+        
 
         
 
