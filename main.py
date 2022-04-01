@@ -19,13 +19,6 @@ class NobetciEczane:
         self.il     = self.il.translate(tr_alphabet)
         self.ilce    = self.ilce.translate(tr_alphabet)
 
-        """
-        tempil = self.ilInput()
-        print(tempil)
-        tempilce = self.ilceInput()
-        print(tempilce)
-        """
-
         source  = "eczaneler.gen.tr"
         self.url     = f"https://www.eczaneler.gen.tr/nobetci-{self.il}-{self.ilce}"
         request   = requests.get(self.url, headers=headers_driver)
@@ -54,16 +47,15 @@ class NobetciEczane:
         veri = json.dumps(data_json['data'], indent=4)
         veri_load = json.loads(veri)
 
+        """
         for info in range(0,len(veri_load),1):
             print("#"*50)
             print("Eczane Adi: ", veri_load[info]["isim"])
             print("Adres: ",veri_load[info]["adres"])
             print("Adres Tarifi: ",veri_load[info]["tarif"])
             print("Telefon: ",veri_load[info]["telefon"])
+        """
 
-        print("/\\"*50)
-        #print(tabulate(veri_load))
-        #print(tabulate(veri_load, headers = data_json))
         print("\n")
         print(tabulate(veri_load, headers = data_json, showindex='always'))
         print("\n")
@@ -82,8 +74,10 @@ class NobetciEczane:
         
 
     def userInput(self):
-        il = input("İl giriniz: ")
-        ilce = input("İlçe giriniz: ")
+        self.il1 = input("İl giriniz: ")
+        self.ilce2 = input("İlçe giriniz: ")
+
+        return self.il1, self.ilce2
 
     def ilInput(self):
         self.il = input("İl giriniz: ")
@@ -92,14 +86,17 @@ class NobetciEczane:
         self.ilce = input("İlce giriniz: ")
         return self.ilce
     
-
-
-
-
-"""
-il = input("İl giriniz: ")
-ilce = input("İlçe giriniz: ")
-"""
-
 ecz1 = NobetciEczane()
 
+"""
+def harf():
+    a = "a"
+    b = "b"
+
+    return a, b
+
+x , y = harf()
+
+print(x)
+print(y)
+"""
